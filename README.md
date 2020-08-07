@@ -1,2 +1,3 @@
 # twitter-clone-api
-The twitter clone API server
+
+This is a twitter clone API server
