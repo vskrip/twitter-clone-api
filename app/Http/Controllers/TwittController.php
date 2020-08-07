@@ -1,40 +1,137 @@
 <?php
 
+/*
+|--------------------------------------------------------------------------
+| Twitt Controller
+|--------------------------------------------------------------------------
+|
+| This controller contains all methods for processing twitts
+|
+*/
+
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Validator;
 use App\Twitt;
+use App\Http\Resources\Twitt as TwittResource;
 
 class TwittController extends Controller
 {
+    /**
+     * Display all twitts.
+     *
+     * @return \Illuminate\Http\Response
+     */
     public function index()
     {
-        return Twitt::all();
+        $twitts = Twitt::all();
+
+        if (is_null($twitts)) {
+            return $this->sendError('Twitts list is empty or invalid.');
+        }
+
+        return $this->sendResponse(TwittResource::collection($twitts), 'Twitts list retrieved successfully.');
     }
 
-    public function show(Twitt $twitt)
+    /**
+     * Display all list of twitts of current logged in user.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function getUserTwitts()
     {
-        return $twitt;
+        $currentUserIs = Auth::id();
+        $twitts = Twitt::where('user_id', $currentUserIs)->get();
+
+        if (is_null($twitts)) {
+            return $this->sendError('Users list of twitts is empty or invalid.');
+        }
+
+        return $this->sendResponse(TwittResource::collection($twitts), 'Users list of twitts retrieved successfully.');
     }
 
+    /**
+     * Display the specified twitt.
+     *
+     * @param  int  identifier of requested twitt
+     * @return \Illuminate\Http\Response
+     */
+    public function show($id)
+    {
+        $twitt = Twitt::find($id);
+
+        if (is_null($twitt)) {
+            return $this->sendError('Twitt not found.');
+        }
+
+        return $this->sendResponse(new TwittResource($twitt), 'Twitt retrieved successfully.');
+    }
+
+
+    /**
+     * Store a newly created twitt in storage.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @return \Illuminate\Http\Response
+     */
     public function store(Request $request)
     {
-        $twitt = Twitt::create($request->all());
+        $input = $request->all();
 
-        return response()->json($twitt, 201);
+        $validator = Validator::make($input, [
+            'user_id' => 'required',
+            'body' => 'required',
+        ]);
+
+        if ($validator->fails()) {
+            return $this->sendError('Validation Error.', $validator->errors());
+        }
+
+        $twitt = Twitt::create($input);
+
+        return $this->sendResponse(new TwittResource($twitt), 'Twitt created successfully.', 201);
     }
 
+
+    /**
+     * Update the specified twitt in the storage.
+     *
+     * @return \Illuminate\Http\Response
+     */
     public function update(Request $request, Twitt $twitt)
     {
-        $twitt->update($request->all());
+        // get data from request
+        $inputData = $request->all();
 
-        return response()->json($twitt, 200);
+        $validator = Validator::make($inputData, [
+            'user_id' => 'required',
+            'body' => 'required'
+        ]);
+
+        if ($validator->fails()) {
+            return $this->sendError('Validation Error.', $validator->errors());
+        }
+
+        $twitt->update($inputData);
+
+        $twittResource = new TwittResource($twitt);
+        $twittId = (empty($twitt->id)) ? "unknown" : $twitt->id;
+
+        return $this->sendResponse($twittResource, 'Twitt with ID ' . $twittId . ' updated successfully.');
     }
 
+    /**
+     * Remove the specified twitt from storage.
+     *
+     * @param  \App\Models\Twitt  $twitt
+     * @return \Illuminate\Http\Response
+     */
     public function delete(Twitt $twitt)
     {
         $twitt->delete();
 
-        return response()->json(null, 204);
+        return $this->sendResponse([], 'Twitt deleted successfully.', 204);
     }
 }

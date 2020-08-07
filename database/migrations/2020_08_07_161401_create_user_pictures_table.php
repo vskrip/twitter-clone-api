@@ -16,7 +16,6 @@ class CreateUserPicturesTable extends Migration
     {
         Schema::create('user_pictures', function (Blueprint $table) {
             $table->bigIncrements('id');
-
             $table->bigInteger('user_id')->unsigned()->index();
             $table->string('path')->default('default-picture.png');
             $table->string('alt')->default('Profile picture');
