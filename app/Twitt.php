@@ -9,12 +9,21 @@ class Twitt extends Model
 {
     protected $guarded = [];
 
+    protected $fillable = ['body'];
+
+    protected $table = 'twitts';
+
 
     public function user()
     {
         return $this->belongsTo(User::class);
     }
 
+    /**
+     * The method returns 
+     *
+     * @return \App\Twitt
+     */
     public static function latestTwitts()
     {
         $followed_users = User::find(auth()->user()->id)->following->pluck('id');
