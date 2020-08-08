@@ -16,9 +16,10 @@ namespace App\Http\Controllers\Auth;
 use App\Http\Controllers\Auth\BaseController as BaseController;
 use App\Providers\RouteServiceProvider;
 use App\User;
+use Illuminate\Http\Request;
 use Illuminate\Foundation\Auth\RegistersUsers;
-use Illuminate\Support\Facades\Hash;
-use Illuminate\Support\Str;
+// use Illuminate\Support\Facades\Hash;
+// use Illuminate\Support\Str;
 use Illuminate\Support\Facades\Validator;
 
 class RegisterController extends BaseController
@@ -47,7 +48,7 @@ class RegisterController extends BaseController
      *
      * @return \Illuminate\Http\Response
      */
-    public function register()
+    public function register(Request $request)
     {
         //  Request Data POST:
         //
@@ -57,7 +58,7 @@ class RegisterController extends BaseController
         //  [c_password] => required, string, the password confirmation
 
         // get data from request
-        $inputRequestData = $this->request->all();
+        $inputRequestData = $request->all();
 
         $validator = Validator::make($inputRequestData, [
             'name' => 'required|string|max:255',
@@ -72,22 +73,23 @@ class RegisterController extends BaseController
 
         // create new user
         unset($input);
-        $input['name'] = (empty($inputRequestData['username'])) ? "" : $inputRequestData['username'];
+        $input['name'] = (empty($inputRequestData['name'])) ? "" : $inputRequestData['name'];
         $input['email'] = (empty($inputRequestData['email'])) ? "" : $inputRequestData['email'];
         $input['password'] = (empty($inputRequestData['password'])) ? "" : bcrypt($inputRequestData['password']);
         $user = User::create($input);
-        // $userId = $user->id; // if it will be need to use somewhere
 
-        $userToken = $user->generateToken()->accessToken;
+        $userToken = $user->generateToken();
         $userName = $user->name;
+        $userId = $user->id;
 
         // structure the api response
         unset($response); // to be a json response
         $response = array();
         $response['result'] = TRUE;
         // -------------------------
-        $response['token'] = $userToken;
+        $response['id'] = $userId;
         $response['name'] = $userName;
+        $response['token'] = $userToken;
         // -------------------------
 
         return $this->sendResponse($response, 'User registered successfully.', 200); // HTTP_STATUS_CODE_STANDARD_SUCCESS

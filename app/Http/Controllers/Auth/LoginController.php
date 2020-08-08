@@ -18,6 +18,7 @@ use App\Providers\RouteServiceProvider;
 use Illuminate\Foundation\Auth\AuthenticatesUsers;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+// use Illuminate\Auth\AuthManager as Auth;
 
 class LoginController extends BaseController
 {
@@ -41,6 +42,8 @@ class LoginController extends BaseController
             'email' => 'required',
             'password' => 'required'
         ]);
+
+        // TODO: login process does not working because the package passport needs to be installed
 
         if (Auth::attempt($loginCredentials)) {
             $user = Auth::user();

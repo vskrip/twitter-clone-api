@@ -7,7 +7,6 @@ use App\User;
 
 class UserPicture extends Model
 {
-    protected $guarded = [];
     protected $table = 'user_pictures';
 
     public function user()

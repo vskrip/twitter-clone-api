@@ -7,9 +7,7 @@ use App\User;
 
 class Twitt extends Model
 {
-    protected $guarded = [];
-
-    protected $fillable = ['body'];
+    protected $fillable = ['user_id', 'body'];
 
     protected $table = 'twitts';
 
@@ -20,18 +18,20 @@ class Twitt extends Model
     }
 
     /**
-     * The method returns 
+     * The method returns list of followed twitts for user by passed user identifier
      *
+     * @var $id - user's identirier
      * @return \App\Twitt
      */
-    public static function latestTwitts()
+    public static function latestTwitts($id)
     {
-        $followed_users = User::find(auth()->user()->id)->following->pluck('id');
+        // TODO: tix the issue "Call to a member function pluck() on null"
+
+        $followed_users = User::find($id)->following->pluck('id');
 
         $followed_twitts = self::whereIn('user_id', $followed_users)
-            ->orWhere('user_id', auth()->user()->id)
-            ->orderBy('twitts.created_at', 'desc')
-            ->paginate(10);
+            ->orWhere('user_id', $id)
+            ->orderBy('twitts.created_at', 'desc');
 
         return $followed_twitts;
     }

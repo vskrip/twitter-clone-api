@@ -12,12 +12,13 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Http\Controllers\Auth\BaseController as BaseController;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Validator;
 use App\Twitt;
 use App\Http\Resources\Twitt as TwittResource;
 
-class TwittController extends Controller
+class TwittController extends BaseController
 {
     /**
      * Display all twitts.
@@ -40,7 +41,7 @@ class TwittController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function getUserTwitts()
+    public function getUsersTwitts()
     {
         $currentUserIs = Auth::id();
         $twitts = Twitt::where('user_id', $currentUserIs)->get();
@@ -50,6 +51,23 @@ class TwittController extends Controller
         }
 
         return $this->sendResponse(TwittResource::collection($twitts), 'Users list of twitts retrieved successfully.');
+    }
+
+    /**
+     * Display list of latest twitts of current logged in user.
+     *
+     * @param int user's identifier
+     * @return \Illuminate\Http\Response
+     */
+    public function getLatestTwitts($id)
+    {
+        $latestTwitts = Twitt::latestTwitts($id);
+
+        if (is_null($latestTwitts)) {
+            return $this->sendError('Users list of latest twitts is empty or invalid.');
+        }
+
+        return $this->sendResponse(TwittResource::collection($latestTwitts), 'Users list of latest twitts retrieved successfully.');
     }
 
     /**
