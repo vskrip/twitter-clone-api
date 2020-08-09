@@ -53,6 +53,12 @@ The project contains database migrations for population the database with tables
 
 After that, you should be able to see tables with data on your local MySQL Server.
 
+## Third Part Libraries Installation
+
+The github repository does not contains third-part libraries. For they isntallation you need to use next command:
+
+`composer update --prefer-dist`
+
 ## Running the Project
 
 Start project with the next command:
