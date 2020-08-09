@@ -7,6 +7,7 @@ This is a server side part of the application.
 
 The client side of the application you can get by [twitter-clone-app](https://github.com/vskrip/twitter-clone-app/).
 Before you start to install and run this API server, you should be ensure, that you have istalled and running the MySQL Database Server.
+You should have installed [Composer](https://getcomposer.org/) on your local computer as well.
 
 ## Description
 
