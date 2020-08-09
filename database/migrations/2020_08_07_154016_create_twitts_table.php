@@ -17,7 +17,11 @@ class CreateTwittsTable extends Migration
         Schema::create('twitts', function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->bigInteger('user_id')->unsigned()->index()->default(1);
+            $table->string('name')->default('user1');
+            $table->string('email')->default('user1@gmail.com');
             $table->string('body');
+            $table->string('img_path')->default('default-picture.png');
+            $table->boolean('isFollow')->unsigned()->default('0')->index();
             $table->timestamp('created_at')->default(DB::raw('CURRENT_TIMESTAMP'));
             $table->timestamp('updated_at')->default(DB::raw('CURRENT_TIMESTAMP'))->onUpdate(DB::raw('CURRENT_TIMESTAMP'));;
 

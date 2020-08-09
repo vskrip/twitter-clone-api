@@ -7,7 +7,7 @@ use App\User;
 
 class Twitt extends Model
 {
-    protected $fillable = ['user_id', 'body'];
+    protected $fillable = ['isFollow', 'body'];
 
     protected $table = 'twitts';
 
@@ -27,7 +27,7 @@ class Twitt extends Model
     {
         // TODO: tix the issue "Call to a member function pluck() on null"
 
-        $followed_users = User::find($id)->following->pluck('id');
+        $followed_users = User::find($id)->following()->pluck('id');
 
         $followed_twitts = self::whereIn('user_id', $followed_users)
             ->orWhere('user_id', $id)

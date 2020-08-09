@@ -124,7 +124,6 @@ class TwittController extends BaseController
         $inputData = $request->all();
 
         $validator = Validator::make($inputData, [
-            'user_id' => 'required',
             'body' => 'required'
         ]);
 
