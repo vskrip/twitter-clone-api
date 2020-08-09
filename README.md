@@ -74,6 +74,7 @@ Your API Server is accessible by http://127.0.0.1:8000 address now.
 User registration in the API server
 
 Method `POST`
+
 URL: `http://127.0.0.1:8000/api/auth/register`
 
 ### Login User
@@ -81,6 +82,7 @@ URL: `http://127.0.0.1:8000/api/auth/register`
 Login to the API server
 
 Method `POST`
+
 URL: `http://127.0.0.1:8000/api/auth/login`
 
 In the body of the POST-request pass the next parameters:
@@ -93,6 +95,7 @@ In the body of the POST-request pass the next parameters:
 Getting list of all tweets
 
 Method: `GET`
+
 URL: `http://127.0.0.1:8000/api/twitts`
 
 ### Show a Specific Twitt
@@ -100,6 +103,7 @@ URL: `http://127.0.0.1:8000/api/twitts`
 Getting data of specific twitt by the twitt id
 
 Method: `GET`
+
 URL: `http://127.0.0.1:8000/api/twitts/{id}`
 
 Change parameter `{id}` to the twitt numeric identifier
@@ -107,7 +111,9 @@ Change parameter `{id}` to the twitt numeric identifier
 ### Create New Twitt
 
 Method: `POST`
+
 URL: `http://127.0.0.1:8000/api/twitts/`
+
 Parameters:
 
 -   user_id - the user identifier;
@@ -116,7 +122,9 @@ Parameters:
 ### Update Twitt
 
 Method: `PUT`
+
 URL: `http://127.0.0.1:8000/api/twitts/{id}`
+
 Parameters:
 
 -   {id} - the twitt numeric identifier;
@@ -127,7 +135,9 @@ Parameters:
 ### Delete Twitt
 
 Method: `DELETE`
+
 URL: `http://127.0.0.1:8000/api/twitts/{id}`
+
 Parameters:
 
 -   {id} - the twitt numeric indentifier;
