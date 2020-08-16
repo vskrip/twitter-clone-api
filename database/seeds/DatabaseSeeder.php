@@ -14,7 +14,8 @@ class DatabaseSeeder extends Seeder
         $this->call([
             UsersTableSeeder::class,
             TwittsTableSeeder::class,
-            UserPicturesTableSeeder::class,
+            OAuthClientsTableSeeder::class,
+            OAuthPersonalAccessClientsTableSeeder::class
         ]);
     }
 }

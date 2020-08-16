@@ -45,10 +45,14 @@ class LoginController extends BaseController
 
         // TODO: login process does not working because the package passport needs to be installed
 
+        // if (Auth::attempt($loginCredentials)) {
         if (Auth::attempt($loginCredentials)) {
             $user = Auth::user();
-            $success['token'] =  $user->generateToken()->accessToken;
+            $success['token'] =  $user->createToken('TwitterCloneAPI')->accessToken;
+            $success['id'] =  $user->id;
             $success['name'] =  $user->name;
+            $success['email'] =  $user->email;
+            $success['avatarImgFileName'] =  $user->avatarImgFileName;
 
             return $this->sendResponse($success, 'User logged in successfully.');
         } else {

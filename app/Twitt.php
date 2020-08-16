@@ -7,7 +7,7 @@ use App\User;
 
 class Twitt extends Model
 {
-    protected $fillable = ['isFollow', 'body'];
+    protected $fillable = ['user_id', 'name', 'email', 'avatarImgFileName', 'isFollow', 'body'];
 
     protected $table = 'twitts';
 

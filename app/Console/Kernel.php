@@ -25,7 +25,7 @@ class Kernel extends ConsoleKernel
      */
     protected function schedule(Schedule $schedule)
     {
-        // scheduled function delete twitts that contain specific words from array every day
+        // scheduled function delete twitts which contain specific words from array every day
 
         $schedule->call(function () {
 

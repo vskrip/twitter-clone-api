@@ -19,7 +19,7 @@ class Twitt extends JsonResource
             'user_id' => $this->user_id,
             'name' => $this->name,
             'email' => $this->email,
-            'img_path' => $this->img_path,
+            'avatarImgFileName' => $this->avatarImgFileName,
             'body' => $this->body,
             'isFollow' => $this->isFollow,
             'created_at' => $this->created_at,

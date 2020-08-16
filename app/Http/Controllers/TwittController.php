@@ -15,6 +15,7 @@ use Illuminate\Http\Request;
 use App\Http\Controllers\Auth\BaseController as BaseController;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Validator;
+use App\User;
 use App\Twitt;
 use App\Http\Resources\Twitt as TwittResource;
 
@@ -106,6 +107,16 @@ class TwittController extends BaseController
         if ($validator->fails()) {
             return $this->sendError('Validation Error.', $validator->errors());
         }
+
+        $id = (empty($input['user_id'])) ? null : $input['user_id'];
+
+        if ($id) {
+            $user = User::find($id);
+        }
+
+        $input['name'] = (empty($user && $user->name)) ? "" : $user->name;
+        $input['email'] = (empty($user && $user->email)) ? "" : $user->email;
+        $input['avatarImgFileName'] = (empty($user && $user->avatarImgFileName)) ? "" : $user->avatarImgFileName;
 
         $twitt = Twitt::create($input);
 

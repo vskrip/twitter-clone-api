@@ -26,19 +26,22 @@ class UsersTableSeeder extends Seeder
                 'name' => 'user1',
                 'email' => 'user1@gmail.com',
                 'email_verified_at' => null,
-                'password' => '$2y$10$d8gCDUiWFJPoI7EvDS699eNwXf/lO63JmQ9J8l2fJ3fTsg7lozzwG'
+                'password' => '$2y$10$d8gCDUiWFJPoI7EvDS699eNwXf/lO63JmQ9J8l2fJ3fTsg7lozzwG',
+                'avatarImgFileName' => 'avatar1-picture.png'
             ],
             [
                 'name' => 'user2',
                 'email' => 'user2@gmail.com',
                 'email_verified_at' => null,
-                'password' => '$2y$10$d8gCDUiWFJPoI7EvDS699eNwXf/lO63JmQ9J8l2fJ3fTsg7lozzwG'
+                'password' => '$2y$10$d8gCDUiWFJPoI7EvDS699eNwXf/lO63JmQ9J8l2fJ3fTsg7lozzwG',
+                'avatarImgFileName' => 'avatar2-picture.png'
             ],
             [
                 'name' => 'user3',
                 'email' => 'user3@gmail.com',
                 'email_verified_at' => null,
-                'password' => '$2y$10$d8gCDUiWFJPoI7EvDS699eNwXf/lO63JmQ9J8l2fJ3fTsg7lozzwG'
+                'password' => '$2y$10$d8gCDUiWFJPoI7EvDS699eNwXf/lO63JmQ9J8l2fJ3fTsg7lozzwG',
+                'avatarImgFileName' => 'avatar3-picture.png'
             ],
         ]);
     }

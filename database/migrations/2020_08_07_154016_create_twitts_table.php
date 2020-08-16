@@ -20,15 +20,15 @@ class CreateTwittsTable extends Migration
             $table->string('name')->default('user1');
             $table->string('email')->default('user1@gmail.com');
             $table->string('body');
-            $table->string('img_path')->default('default-picture.png');
+            $table->string('avatarImgFileName')->default('default-picture.png');
             $table->boolean('isFollow')->unsigned()->default('0')->index();
             $table->timestamp('created_at')->default(DB::raw('CURRENT_TIMESTAMP'));
             $table->timestamp('updated_at')->default(DB::raw('CURRENT_TIMESTAMP'))->onUpdate(DB::raw('CURRENT_TIMESTAMP'));;
 
-            // $table->foreign('user_id')
-            //     ->references('id')
-            //     ->on('users')
-            //     ->onDelete('cascade');
+            $table->foreign('user_id')
+                ->references('id')
+                ->on('users')
+                ->onDelete('cascade');
         });
     }
 

@@ -17,6 +17,15 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
     return $request->user();
 });
 
+// Users
+Route::group(['middleware' => 'auth:api'], function () {
+    // Route::get('users', 'UserController@index');
+    // Route::get('users/{user}', 'UserController@show');
+    // Route::post('users', 'UserController@store');
+    Route::put('users/{id}', 'UserController@update');
+    // Route::delete('users/{id}', 'UserController@delete');
+});
+
 // Auth
 Route::prefix('/auth')->group(function () {
     Route::post('login', 'Auth\LoginController@login')->name('login');
@@ -25,11 +34,11 @@ Route::prefix('/auth')->group(function () {
 });
 
 // Twitts
-// Route::group(['middleware' => 'auth:api'], function () {
-Route::get('twitts', 'TwittController@index');
-Route::get('twitts/{twitt}', 'TwittController@show');
-Route::get('twitts/latest/{id}', 'TwittController@getLatestTwitts');
-Route::post('twitts', 'TwittController@store');
-Route::put('twitts/{twitt}', 'TwittController@update');
-Route::delete('twitts/{twitt}', 'TwittController@delete');
-// });
+Route::group(['middleware' => 'auth:api'], function () {
+    Route::get('twitts', 'TwittController@index');
+    Route::get('twitts/{twitt}', 'TwittController@show');
+    Route::get('twitts/latest/{id}', 'TwittController@getLatestTwitts');
+    Route::post('twitts', 'TwittController@store');
+    Route::put('twitts/{twitt}', 'TwittController@update');
+    Route::delete('twitts/{twitt}', 'TwittController@delete');
+});
